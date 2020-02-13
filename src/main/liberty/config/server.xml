@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="${project.name}">
+
+    <featureManager>
+        <feature>microProfile-3.2</feature>
+        <feature>jpa-2.2</feature>
+        <feature>jdbc-4.2</feature>
+        <feature>jndi-1.0</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="9080"
+                  httpsPort="9443"/>
+
+    <webApplication location="${project.name}.war" contextRoot="/"/>
+    <mpMetrics authentication="false"/>
+
+    <!-- This is the keystore that will be used by SSL and by JWT. -->
+    <keyStore id="defaultKeyStore" location="public.jks" type="JKS" password="atbash"/>
+
+    <dataSource id="DefaultDataSource"
+                type="javax.sql.ConnectionPoolDataSource"
+                jndiName="jdbc/postgresql">
+
+        <jdbcDriver id="postgresql-driver"
+                    javax.sql.XADataSource="org.postgresql.xa.PGXADataSource"
+                    javax.sql.DataSource="org.postgresql.ds.PGDataSource"
+                    javax.sql.ConnectionPoolDataSource="org.postgresql.ds.PGConnectionPoolDataSource"
+                    libraryRef="global"/>
+
+        <properties.postgresql serverName="postgresql"
+                               portNumber="5432"
+                               databaseName="postgres"
+                               user="postgres"
+                               password="postgres"/>
+    </dataSource>
+
+    <library id="global" apiTypeVisibility="spec, ibm-api, api, stable, third-party">
+        <fileset dir="${shared.config.dir}/lib/global" includes="*.jar" caseSensitive="false" scanInterval="5s"/>
+    </library>
+</server>
+
