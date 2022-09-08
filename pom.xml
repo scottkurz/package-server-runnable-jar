@@ -22,7 +22,7 @@
 
         <openliberty.version>[19.0.0.9,)</openliberty.version>
 
-        <version.postgresql>42.2.10</version.postgresql>
+        <version.postgresql>42.4.1</version.postgresql>
     </properties>
 
     <dependencies>
